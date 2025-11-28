@@ -9,6 +9,11 @@
 		"checkJs": true,
 		"resolveJsonModule": true
 	},
-	"include": ["src/**.ts", "src/**.js", "worker-configuration.d.ts"],
+	"include": [
+		"src/**.ts",
+		"src/**.js",
+		"worker-configuration.d.ts",
+		"@cloudflare/vitest-pool-workers"
+	],
 	"exclude": ["node_modules/**"]
 }
