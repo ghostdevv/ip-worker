@@ -25,9 +25,7 @@ describe('ip', () => {
 			}),
 		);
 
-		expect(response.headers.get('Content-Type')).toEqual(
-			expect.stringContaining('text/plain'),
-		);
+		expect(response.headers.get('Content-Type')).toContain('text/plain');
 
 		const text = await response.text();
 		expect(text).toBe('127.0.0.1');
@@ -41,9 +39,7 @@ describe('ip', () => {
 			}),
 		);
 
-		expect(response.headers.get('Content-Type')).toEqual(
-			expect.stringContaining('text/plain'),
-		);
+		expect(response.headers.get('Content-Type')).toContain('text/plain');
 
 		const text = await response.text();
 		expect(text).toBe('127.0.0.1');
@@ -57,9 +53,7 @@ describe('ip', () => {
 			}),
 		);
 
-		expect(response.headers.get('Content-Type')).toEqual(
-			expect.stringContaining('text/html'),
-		);
+		expect(response.headers.get('Content-Type')).toContain('text/html');
 
 		const html = await response.text();
 		expect(html).toContain('<h1>127.0.0.1</h1>');
@@ -76,9 +70,7 @@ describe('ip', () => {
 			}),
 		);
 
-		expect(response.headers.get('Content-Type')).toEqual(
-			expect.stringContaining('application/json'),
-		);
+		expect(response.headers.get('Content-Type')).toContain('application/json');
 
 		const json = await response.json();
 		expect(json).toMatchObject({ ip: '127.0.0.1' });
@@ -92,9 +84,7 @@ describe('ip', () => {
 			}),
 		);
 
-		expect(response.headers.get('Content-Type')).toEqual(
-			expect.stringContaining('text/plain'),
-		);
+		expect(response.headers.get('Content-Type')).toContain('text/plain');
 
 		const text = await response.text();
 		expect(text).toBe('192.168.1.1');
@@ -111,9 +101,7 @@ describe('ip', () => {
 			}),
 		);
 
-		expect(response.headers.get('Content-Type')).toEqual(
-			expect.stringContaining('application/json'),
-		);
+		expect(response.headers.get('Content-Type')).toContain('application/json');
 
 		const json = await response.json();
 		expect(json).toMatchObject({ ip: '192.168.1.1' });
@@ -130,9 +118,7 @@ describe('cc', () => {
 			}),
 		);
 
-		expect(response.headers.get('Content-Type')).toEqual(
-			expect.stringContaining('text/plain'),
-		);
+		expect(response.headers.get('Content-Type')).toContain('text/plain');
 
 		const text = await response.text();
 		expect(text).toBe('US');
@@ -149,9 +135,7 @@ describe('cc', () => {
 			}),
 		);
 
-		expect(response.headers.get('Content-Type')).toEqual(
-			expect.stringContaining('application/json'),
-		);
+		expect(response.headers.get('Content-Type')).toContain('application/json');
 
 		const json = await response.json();
 		expect(json).toMatchObject({ cc: 'GB' });
