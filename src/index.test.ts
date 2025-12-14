@@ -49,6 +49,22 @@ describe('ip', () => {
 		expect(text).toBe('127.0.0.1');
 	});
 
+	it('should return html ip address', async () => {
+		const response = await worker.fetch(
+			new Request(MOCK_URL, {
+				method: 'GET',
+				headers: { 'cf-connecting-ip': '127.0.0.1', accept: 'text/html' },
+			}),
+		);
+
+		expect(response.headers.get('Content-Type')).toEqual(
+			expect.stringContaining('text/html'),
+		);
+
+		const html = await response.text();
+		expect(html).toContain('<h1>127.0.0.1</h1>');
+	});
+
 	it('should return json ip address', async () => {
 		const response = await worker.fetch(
 			new Request(MOCK_URL, {

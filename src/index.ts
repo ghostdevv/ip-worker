@@ -1,7 +1,7 @@
-import { AutoRouter, cors, json, text, type IRequest } from 'itty-router';
+import { AutoRouter, cors, json, text, html, type IRequest } from 'itty-router';
 import { getBestMatch } from './accept';
 
-const SUPPORTED_TYPES = ['text/plain', 'application/json'];
+const SUPPORTED_TYPES = ['text/plain', 'application/json', 'text/html'];
 
 function ip(request: IRequest) {
 	const accept = request.headers.get('accept');
@@ -12,6 +12,9 @@ function ip(request: IRequest) {
 	switch (bestMatch) {
 		case 'application/json':
 			return json({ ip });
+
+		case 'text/html':
+			return html(`<html><body><h1>${ip}</h1></body></html>`);
 
 		case 'text/plain':
 		default:
@@ -28,6 +31,9 @@ function cc(request: IRequest) {
 	switch (bestMatch) {
 		case 'application/json':
 			return json({ cc });
+
+		case 'text/html':
+			return html(`<html><body><h1>${cc}</h1></body></html>`);
 
 		case 'text/plain':
 		default:
