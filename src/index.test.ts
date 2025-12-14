@@ -25,6 +25,26 @@ describe('ip', () => {
 			}),
 		);
 
+		expect(response.headers.get('Content-Type')).toEqual(
+			expect.stringContaining('text/plain'),
+		);
+
+		const text = await response.text();
+		expect(text).toBe('127.0.0.1');
+	});
+
+	it('should return plain text ip address with wildcard accept', async () => {
+		const response = await worker.fetch(
+			new Request(MOCK_URL, {
+				method: 'GET',
+				headers: { 'cf-connecting-ip': '127.0.0.1', Accept: '*/*' },
+			}),
+		);
+
+		expect(response.headers.get('Content-Type')).toEqual(
+			expect.stringContaining('text/plain'),
+		);
+
 		const text = await response.text();
 		expect(text).toBe('127.0.0.1');
 	});
@@ -35,9 +55,13 @@ describe('ip', () => {
 				method: 'GET',
 				headers: {
 					'cf-connecting-ip': '127.0.0.1',
-					'accept': 'application/json',
+					accept: 'application/json',
 				},
 			}),
+		);
+
+		expect(response.headers.get('Content-Type')).toEqual(
+			expect.stringContaining('application/json'),
 		);
 
 		const json = await response.json();
@@ -52,6 +76,10 @@ describe('ip', () => {
 			}),
 		);
 
+		expect(response.headers.get('Content-Type')).toEqual(
+			expect.stringContaining('text/plain'),
+		);
+
 		const text = await response.text();
 		expect(text).toBe('192.168.1.1');
 	});
@@ -62,13 +90,18 @@ describe('ip', () => {
 				method: 'GET',
 				headers: {
 					'cf-connecting-ip': '192.168.1.1',
-					'accept': 'application/json',
+					accept: 'application/json',
 				},
 			}),
 		);
 
+		expect(response.headers.get('Content-Type')).toEqual(
+			expect.stringContaining('application/json'),
+		);
+
 		const json = await response.json();
 		expect(json).toMatchObject({ ip: '192.168.1.1' });
+		// Content-Type already checked above
 	});
 });
 
@@ -81,6 +114,10 @@ describe('cc', () => {
 			}),
 		);
 
+		expect(response.headers.get('Content-Type')).toEqual(
+			expect.stringContaining('text/plain'),
+		);
+
 		const text = await response.text();
 		expect(text).toBe('US');
 	});
@@ -91,9 +128,13 @@ describe('cc', () => {
 				method: 'GET',
 				headers: {
 					'cf-ipcountry': 'GB',
-					'accept': 'application/json',
+					accept: 'application/json',
 				},
 			}),
+		);
+
+		expect(response.headers.get('Content-Type')).toEqual(
+			expect.stringContaining('application/json'),
 		);
 
 		const json = await response.json();
