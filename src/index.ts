@@ -3,6 +3,30 @@ import { getBestMatch } from './accept';
 
 const SUPPORTED_TYPES = ['text/plain', 'application/json', 'text/html'];
 
+const htmlTpl = (title: string, slot: string) => `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${title}</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ghostsui@beta/ghostsui.css" />
+    </head>
+    <body>
+        ${slot}
+
+        <style>
+            h1 {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        </style>
+    </body>
+    </html>
+`;
+
 function ip(request: IRequest) {
 	const accept = request.headers.get('accept');
 	const ip = request.headers.get('cf-connecting-ip');
@@ -14,7 +38,7 @@ function ip(request: IRequest) {
 			return json({ ip });
 
 		case 'text/html':
-			return html(`<html><body><h1>${ip}</h1></body></html>`);
+			return html(htmlTpl('IP Address', `<h1>${ip}</h1>`));
 
 		case 'text/plain':
 		default:
@@ -33,7 +57,7 @@ function cc(request: IRequest) {
 			return json({ cc });
 
 		case 'text/html':
-			return html(`<html><body><h1>${cc}</h1></body></html>`);
+			return html(htmlTpl('Country Code', `<h1>${cc}</h1>`));
 
 		case 'text/plain':
 		default:
